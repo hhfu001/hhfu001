@@ -1,0 +1,73 @@
+<style type="text/css">
+.slides_control{ height: 112px; width: 656px; overflow: hidden; position: relative;}
+.slides_control img{ width: 656px; height: 112px; }
+.slides_control  li{ position: relative;}
+
+.w1216 .slides_control,
+.w1216 .slides_control img{ width: 880px; height: 150px;}
+
+.pagination {margin:10px auto; text-align: center;}
+.pagination a{ margin: 0 8px; display: inline-block; background: url(http://i1.tdimg.com/b/20140626/co1.png) no-repeat bottom left;*background: url(http://i3.tdimg.com/b/20121026/c465.gif) no-repeat bottom left;width:17px;height:17px; overflow: hidden; text-indent: -999px;}
+.pagination .current{background: url(http://i1.tdimg.com/b/20140626/co1.png) no-repeat top left;*background: url(http://i3.tdimg.com/b/20121026/c465.gif) no-repeat top left;}
+</style>
+
+<div class="slides_container">
+	<ul class="slides_control">
+		<li>
+			<a href="http://www.jissbon.com/" target="_blank"><img src="http://u2.tdimg.com/3/234/0/111108014632228287801278206094896338733.jpg?1419318987071" /></a>
+		</li>
+		<li style="display:none;">
+			<a href="http://jissbon.tmall.com/p/rd869240.htm?spm=a1z10.1.w8602904-8371079246.1.Muybid&amp;scene=taobao_shop" target="_blank"><img src="http://u4.tdimg.com/3/94/236/84232054689718561225518618978908150283.jpg" /></a>
+		</li>
+	</ul>
+	<div class="pagination"><a href="#0" class="current">1</a><a href="#1">2</a></div>
+</div>
+<script src="http://js.tudouui.com/v3/dist/js/lib_5.js" id="libjsnode" charset="utf-8"></script>
+<script>
+	$(function(){
+		var slides_control = $('.slides_control');
+		var slides = slides_control.find('li');
+		var btns = $('.pagination a');
+
+		var timer;
+		var current = 0;
+		var max = slides.length - 1;
+
+		
+
+		function loop(i){
+			if(timer) clearTimeout(timer);
+
+			timer = setTimeout(function(){
+				
+				go(i);
+			}, 5000);
+		}
+
+
+		function go(i){
+			current = i;
+
+			slides.hide();
+			slides.eq(i).fadeIn();
+
+			btns.removeClass('current').eq(i).addClass('current');
+
+			var j = i < max ? ++i : 0;
+			loop(j);
+		}
+
+		loop(1);
+
+		$('.pagination').on('click', 'a', function(e){
+			e.preventDefault();
+			var index = $(this).index();
+
+			if(timer) clearTimeout(timer);
+
+			go(index);
+		});
+
+	});
+
+</script>
