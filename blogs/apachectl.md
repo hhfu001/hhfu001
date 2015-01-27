@@ -28,4 +28,3 @@
 ```
 
 5. 运行“sudo vi /etc/hosts”，打开hosts配置文件，加入"127.0.0.1 mysites"，这样就可以配置完成sites虚拟主机了，可以访问“http://mysites”了，在10.8之前Mac OS X版本其内容和“http://localhost/~[用户名]”完全一致。
-6. 注意，记录log的“ErrorLog "/private/var/log/apache2/sites-error_log"”也可以删掉，但记录日志其实是一个好习惯，在出现问题时可以帮助我们判断。如果保留这些log代码，一定log文件路径都是存在的，如果随便修改一个不存在的，会导致Apache无法服务而没有错误提示，这个比较恶心。
