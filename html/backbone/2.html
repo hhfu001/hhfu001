@@ -1,0 +1,88 @@
+<html>
+<head>
+    <title>Model</title>
+</head>
+<body>
+    <script src="../../lib/jquery.js"></script>
+    <script src="../../lib/json2.js"></script>
+    <script src="../../lib/underscore.js"></script>
+    <script src="../../lib/backbone.js"></script>
+    <script>
+    (function($) {
+        
+        // var World = Backbone.Model.extend({
+        //     name: null
+        // });
+
+        // var Worlds = Backbone.Collection.extend({
+        //     initialize: function(modes, options){
+        //         this.bind('add', options.view.addOneWorlod);
+        //     }
+        // });
+
+        // var AppView = Backbone.View.extend({
+        //     el: $('body'),
+        //     initialize: function(){
+        //         this.worlds = new Worlds(null, {view: this});
+        //     },
+        //     events: {
+        //         'click #check': 'checkIn'
+        //     },
+        //     checkIn: function(){
+        //         var name = prompt('来自哪里？');
+        //         if(!name){
+        //             name = "未知";
+        //         }
+
+        //         var world = new World({name: name});
+
+        //         this.worlds.add(world);
+        //     },
+        //     addOneWorlod: function(model){
+
+        //         // console.log(this, this.get('name'));
+        //         $('#world-list').append('<li>这里是来自 <b>' + model.get('name') + '</b> 星球的问候：hello world！</li>')
+        //     }
+
+        // });
+
+        // new AppView();
+
+
+        var Man = Backbone.Model.extend({
+            initialize: function(){
+                console.log('Man is initialize!');
+
+                this.bind('change:name', function(){
+                    console.log('set name is:' + this.get('name'));
+                });
+
+                this.bind('invalid', function(model, error){
+
+                    console.log('error', error);
+
+                });
+            },
+            defaults: {
+                name: 'jack',
+                age: 29
+            },
+            validate: function(attrs){
+                if(!attrs.name){
+                    return 'name is empty';
+                }
+            },
+            aboutMe: function(){
+                return 'My name is ' + this.get('name') + ',I am ' + this.get('age') + 'years old';
+            }
+        });
+
+        var man = new Man();
+
+        // console.log(man.get('name'), man.get('age'));
+        window.man = man;
+
+    })(jQuery);
+    </script>
+</body>
+</html>
