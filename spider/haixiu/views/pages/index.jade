@@ -1,0 +1,11 @@
+extends ../layout
+
+block content
+	h3 小组 -
+		a(href="http://www.douban.com/group/haixiuzu/", target="_blank") 请不要
+	p 现在地域：
+	p
+		a( href="/all") 所有
+		each item in cities
+			p
+				a(href="/city/#{item.key}") #{item.name}

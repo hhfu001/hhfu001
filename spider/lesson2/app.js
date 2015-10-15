@@ -6,7 +6,7 @@ var app = express();
 
 app.get('/', function(req, res){
 
-console.log(req.query)
+console.log(req.query, req.params)
 	var md5value;
 	
 	if(req.query.q){
@@ -16,6 +16,7 @@ console.log(req.query)
 	}
 
 	
+	console.log(md5value);
 
 	res.send(md5value)
 

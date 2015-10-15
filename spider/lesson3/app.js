@@ -8,10 +8,28 @@ var eventproxy = require('eventproxy');
 
 var url = require('url');
 
+// var https = require('https');
+
 var cnodeUrl = 'https://cnodejs.org/';
 
 
 var app = express();
+
+// https.get(cnodeUrl, function(res){
+// 	var html;
+
+// 	res.on('data', function(data){
+// 		html += data;
+// 	})
+// 	res.on('end', function(){
+// 		console.log(html);
+// 	})
+
+// }).on('error',function(){
+// 	console.log('获取课程数据出错')
+// })
+
+
 
 app.get('/', function(req, res) {
 
@@ -56,9 +74,9 @@ app.get('/', function(req, res) {
 					var $ = cheerio.load(topicHtml);
 
 					return {
-						title: $('.topic_full_title').text().trim(),
+						title: $('.topic_full_title').text(),
 						href: topicUrl,
-						comment1: $('.reply_content').eq(0).text().trim()
+						comment1: $('.reply_content').eq(0).text()
 					};
 
 				});
