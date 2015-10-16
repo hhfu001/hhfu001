@@ -5,6 +5,7 @@ var app = express();
 var mongoose = require('mongoose');
 var Movie = require('./models/movie');
 var _ = require('underscore');
+var bodyParser = require('body-parser')
 
 
 mongoose.connect('mongodb://localhost/imooc');
@@ -14,7 +15,7 @@ app.set('views', './views/pages');
 app.set('view engine', 'jade');
 
 app.use(express.static(path.join(__dirname, 'public')));
-// app.use(express.bodyParser());
+app.use(require('body-parser').urlencoded({extended: true}))
 app.locals.moment = require('moment');
 
 app.listen(port);
@@ -38,7 +39,23 @@ app.get('/', function(req, res) {
     });
 });
 
-//list page
+
+//view page
+// flash: 'http://player.youku.com/player.php/sid/XODU1MDE0MjM2/v.swf',
+app.get('/movie/:id', function(req, res) {
+    var id = req.params.id;
+
+    Movie.findById(id, function(err, movie) {
+        res.render('detail', {
+            title: 'detail',
+            movie: movie
+        })
+    });
+
+});
+
+
+//admin list page
 app.get('/admin/list', function(req, res) {
    
     Movie.fetch(function(err, movies) {
@@ -54,21 +71,7 @@ app.get('/admin/list', function(req, res) {
     });
 });
 
-//detail page
-// flash: 'http://player.youku.com/player.php/sid/XODU1MDE0MjM2/v.swf',
-app.get('/movie/:id', function(req, res) {
-    var id = req.params.id;
-
-    Movie.findById(id, function(err, movie) {
-        res.render('detail', {
-            title: 'detail',
-            movie: movie
-        })
-    });
-
-});
-
-//admin page
+//admin page add
 app.get('/admin/movie', function(req, res) {
     res.render('admin', {
         title: 'admin',
@@ -87,7 +90,7 @@ app.get('/admin/movie', function(req, res) {
 
 //update
 app.get('/admin/update/:id', function(req, res){
-    var id = req.body.movie._id;
+    var id = req.params.id;
 
     if(id){
 
@@ -106,6 +109,7 @@ app.get('/admin/update/:id', function(req, res){
 
 //admin post movie
 app.post('/admin/movie/new', function(req, res) {
+
     var id = req.body.movie._id;
     var movieObj = req.body.movie;
     var _movie;
