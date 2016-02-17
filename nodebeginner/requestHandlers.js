@@ -3,7 +3,7 @@ var fs = require('fs');
 var formidable = require("formidable");
 
 function start(response, postData) {
-  console.log("Request handler 'start' was called.");
+  console.log("Request handler 'start' was called.", postData);
 
   var body = '<html>'+
     '<head>'+
@@ -49,7 +49,7 @@ function upload(response, request) {
 
 
 function show(response, postData) {
-  console.log("Request handler 'show' was called.");
+  console.log("Request handler 'show' was called.", postData);
   fs.readFile("/tmp/test.png", "binary", function(error, file) {
     if (error) {
       response.writeHead(500, {
