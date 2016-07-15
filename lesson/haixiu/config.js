@@ -1,4 +1,4 @@
-var cities = [{
+const cities = [{
     key: 'hangzhou',
     name: '浙江杭州'
 }, {
@@ -34,10 +34,10 @@ var cities = [{
 
 
 
-var config = {
+let config = {
     mongodb_url: process.env.MONGOHQ_URL || 'mongodb://localhost/cellphonepics',
     port: process.env.PORT || 3000,
-    douban_cookie: 'viewed="3590768_1016272"; ll="108296"; bid="hWcTdvDyOYI"; ct=y; _ga=GA1.2.1167184662.1412271513; _pk_ref.100001.8cb4=%5B%22%22%2C%22%22%2C1415179087%2C%22https%3A%2F%2Fwww.google.com%2F%22%5D; __utmt=1; as="http://www.douban.com/"; dbcl2="105659582:Xb5v0vuj9OM"; ck="GKUf"; _pk_id.100001.8cb4=d9658059b6096e90.1412332268.27.1415180767.1415172287.; _pk_ses.100001.8cb4=*; push_noty_num=0; push_doumail_num=0; __utma=30149280.1167184662.1412271513.1415166517.1415179088.44; __utmb=30149280.29.10.1415179088; __utmc=30149280; __utmz=30149280.1415162297.42.25.utmcsr=google|utmccn=(organic)|utmcmd=organic|utmctr=(not%20provided); __utmv=30149280.10565',
+    douban_cookie: 'll="108296"; bid=HLOzsNQj1bE; gr_user_id=cdf64fcc-bade-4f36-9636-044aa5c9b3e5; viewed="10733304_1467587"; _vwo_uuid_v2=EE3082146D6C93AECD0C1E4633337C70|cfec367472d8558e01dfa2b7373ce683; ap=1; __ads_session=KRZHuOfUwAg5X6wBvQA=; ps=y; ck=d1Rb; push_noty_num=0; push_doumail_num=0; _pk_ref.100001.8cb4=%5B%22%22%2C%22%22%2C1468566234%2C%22http%3A%2F%2Flocalhost%3A3000%2Fall%22%5D; _pk_id.100001.8cb4=afcbec078861f4a5.1467875268.8.1468566234.1468561842.; _pk_ses.100001.8cb4=*; __utma=30149280.1214664806.1467020529.1468561845.1468566235.6; __utmb=30149280.8.4.1468566235; __utmc=30149280; __utmz=30149280.1468566235.6.3.utmcsr=localhost:3000|utmccn=(referral)|utmcmd=referral|utmcct=/all; __utmv=30149280.4686; ct=y',
     gaid: 'UA-26476625-4',
     cities: cities
 };

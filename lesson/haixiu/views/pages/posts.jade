@@ -4,13 +4,16 @@ block content
 
 	each item in docs
 		div
-			p 标题:
+			h3 
 				a(href="#{item.url}", target="_blank") #{item.title}
-			p 创建时间: #{item.create_at}
-			p 作者: 
-				a(href="/author/#{item.authorId}", target="_blank") #{item.author}
-			p 地址：#{item.author_location}
+			h6
+				em 
+					a(href="/author/#{item.authorId}", target="_blank") #{item.author}
+					@ #{moment(item.create_at).format('YYYY-MM-DD')}
+					
+			//- p 地址：#{item.author_location}
 			p
 				each img in item.imgs
+					p #{img}
 					img(src="#{img}")
 <hr>

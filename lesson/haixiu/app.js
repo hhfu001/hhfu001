@@ -1,24 +1,35 @@
-var express = require('express');
-var mongoose = require('mongoose');
-var crawler = require('./crawler');
-var model = require('./models/haixiu');
-var config = require('./config');
+const express = require('express');
+const mongoose = require('mongoose');
+const crawler = require('./crawler');
+const model = require('./models/haixiu');
+const config = require('./config');
 
 
-var app = express();
+const app = express();
 
 mongoose.connect(config.mongodb_url);
 
 app.set('views', './views/pages');
 app.set('view engine', 'jade');
 
-var cities = config.cities;
+app.locals.moment = require('moment');
+
+const cities = config.cities;
 
 function getDocsAuthorId(docs) {
     docs = docs || [];
-    var reg = /http:\/\/www.douban.com\/group\/people\/(\w+)(\/)?/;
-    for (var i = 0; i < docs.length; i++) {
-        docs[i].authorId = reg.exec(docs[i].author_url)[1];
+    const reg = /http:\/\/www.douban.com\/group\/people\/(\w+)(\/)?/;
+    for (let i = 0; i < docs.length; i++) {
+        docs[i].authorId = reg.exec(docs[i].author_url) ? reg.exec(docs[i].author_url)[1] : '';
+        let imgs = docs[i].imgs;
+
+        if (!imgs.length) {
+            docs.splice(i, 1);
+        }
+
+        docs[i].imgs = imgs.map(function (item) {
+            return item.replace(/https:/, 'http:')
+        });
     }
     return docs;
 }
@@ -27,18 +38,18 @@ function getDocsAuthorId(docs) {
 
 
 
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
     res.render('index', {
         cities: cities
     });
 });
 
 // 针对各个地域的 route 配置
-app.get('/all', function(req, res) {
+app.get('/all', function (req, res) {
 
-    model.findAll(function(err, docs) {
+    model.findAll(function (err, docs) {
         if (err) console.log(err);
-        console.log(docs);
+        // console.log(docs);
 
         docs = getDocsAuthorId(docs);
 
@@ -66,6 +77,6 @@ app.get('/all', function(req, res) {
 
 
 
-var server = app.listen(config.port, function() {
+let server = app.listen(config.port, function () {
     console.log('app is listening ' + server.address().port);
 });
