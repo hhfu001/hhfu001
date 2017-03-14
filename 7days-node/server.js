@@ -146,7 +146,7 @@ function parseURL(root, url) {
     // console.log('root', pathnames);
     return {
         mime: MIME[path.extname(pathnames[0])] || 'text/plain',
-        pathnames: pathnames
+        // pathnames: pathnames
             // pathnames: ['http://hhfu.com/7days-node/foo/bar.js', 'http://hhfu.com/7days-node/foo/baz.js']
 
     }

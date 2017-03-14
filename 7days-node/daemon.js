@@ -4,7 +4,8 @@ var worker;
 
 function spawn(server, config){
     worker = child_process.spawn('node', [server, config]);
-    console.log('child_process')
+    
+    
     worker.on('exit', function(code){
         if(code != 0){
             spawn(server, config)
