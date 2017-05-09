@@ -9,7 +9,7 @@ MVC模式的JavaScript Demo
 > MVC模式的精髓在于第三点：Model的更新是通过观察者模式告知View的，具体表现形式可以是Pub/Sub或者是触发Events。
 
 ### 优缺点
-* 业务逻辑和展示逻辑分开，模块化程度高。 业务逻辑变更是指需要更改controller就行。
+* 业务逻辑和展示逻辑分开，模块化程度高。 业务逻辑变更是只需要更改controller就行。
 * 观察者模式可以做到多个View同时更新。
 * Controller测试困难，View无法组件化。
 
