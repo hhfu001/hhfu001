@@ -19,7 +19,12 @@ function main(argv) {
 
         const urlInfo = paresURL(root + ':' + port, request.url);
 
-        validateFiles(urlInfo.pathnames, (err, pathnames) => {
+        // response.writeHead(200, {
+        //     'Content-Type': urlInfo.mime
+        // });
+        
+        // response.end(fs.readFileSync('./demo/bar.js'));
+        combineFiles(urlInfo.pathnames, (err, data) => {
             if (err) {
                 response.writeHead(404);
                 response.end(err.message);
@@ -28,48 +33,32 @@ function main(argv) {
                 response.writeHead(200, {
                     'Content-Type': urlInfo.mime
                 });
-                outputFiles( pathnames, response );
+                response.end(data);
             }
         })
 
     }).listen(port);
 }
 
-function outputFiles(pathnames = [], writer) {
+function combineFiles(pathnames = [], callback) {
     let output = [];
 
     (function next(i, len) {
         if (i < len) {
 
-            const reader = fs.createReadStream(pathnames[i]);
-            reader.pipe(writer, { end: false });
-            reader.on('end', () => { 
-                next(i+1, len)
-            })
-
-        } else {
-            writer.end();
-        }
-    })(0, pathnames.length)
-}
-
-function validateFiles(pathnames, callback) { 
-    (function next(i, len) {
-        if (i < len) {
-            fs.stat(pathnames[i], (err, stats) => {
+            fs.readFile(pathnames[i], (err, data) => {
                 if (err) {
                     callback(err)
-                } else if (!stats.isFile()) {
-                    callback(new Error())
                 } else {
+                    output.push(data);
                     next(i + 1, len)
                 }
             })
         } else {
-            callback(null, pathnames)
+            callback(null, Buffer.concat(output))
         }
-    })(0, pathnames.length);
 
+    })(0, pathnames.length)
 }
 
 
