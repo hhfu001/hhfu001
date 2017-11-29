@@ -50,7 +50,6 @@ function outputFiles(pathnames = [], writer) {
             const reader = fs.createReadStream(pathnames[i]);
             reader.pipe(writer, { end: false });
             reader.on('end', () => { 
-                writer.write(';');
                 next(i+1, len)
             })
 
